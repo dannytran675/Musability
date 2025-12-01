@@ -1,29 +1,72 @@
 import React, { useState } from 'react';
 import { Music2 } from 'lucide-react';
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+//pages
+import GuitarPage from './guitar';
+import SingingPage from './singing';
 
+const AnimationStyles = () => (
+  <style>{`
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .page-enter {
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+  `}</style>
+);
+
+// This wrapper applies the animation every time the 'key' changes
+const PageWrapper = ({ children }) => (
+  <div className="page-enter w-full">
+    {children}
+  </div>
+);
+
+const Navbar = ({ onNavigate }) => {
   return (
     <nav className="bg-gray-900 shadow-sm sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <span className="flex items-center text-xl font-bold text-purple-400">
+            {/* Logo Button */}
+            <button 
+              onClick={() => onNavigate('home')}
+              className="flex items-center text-xl font-bold text-purple-400 focus:outline-none transition duration-300 hover:text-purple-300"
+            >
               <Music2 className="h-6 w-6 mr-2" />
               Musability
-            </span>
+            </button>
           </div>
           
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-purple-200 hover:text-purple-400 transition-colors">Home</a>
-            <a href="#" className="text-purple-200 hover:text-purple-400 transition-colors">Guitar</a>
-            <a href="#" className="text-purple-200 hover:text-purple-400 transition-colors">Singing</a>
+            <button 
+              onClick={() => onNavigate('home')} 
+              className="text-purple-200 hover:text-purple-400 transition-colors"
+            >
+              Home
+            </button>
+            
+            {/* 2. THE GUITAR BUTTON (Fixed) */}
+            <button 
+              onClick={() => onNavigate('guitar')} 
+              className="text-purple-200 hover:text-purple-400 transition-colors"
+            >
+              Guitar
+            </button>
+            
+            <button 
+              onClick={() => onNavigate('singing')} 
+              className="text-purple-200 hover:text-purple-400 transition-colors"
+            >
+              Singing
+            </button>
+            
             <button className="bg-purple-400 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
               Placeholder
             </button>
-            
           </div>
         </div>
       </div>
@@ -34,7 +77,7 @@ const Navbar = () => {
 const Hero = () => {
   return (
     <div className="relative bg-gray-800 overflow-hidden"> {/*what does overflow-hidden mean */}
-      <div className="max-w-7xl mx-auto"> {/*ask gemini about how the styling in these lines works*/}
+      <div className="max-w-7xl lg:ml-20"> {/*ask gemini about how the styling in these lines works*/}
         <div className="relative z-10 pb-8 bg-gray-800 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
           <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
             <div className="sm:text-center lg:text-left">
@@ -114,11 +157,37 @@ const Footer = () => {
 };
 
 export default function App() {
+  const [currentPage, setCurrentPage] = useState('home');
+
   return (
-    <div className="min-h-screen bg-gray-900">
-      <Navbar />
-      <Hero />
-      <Footer />
+    <div className="h-screen bg-gray-900 overflow-y-auto [scrollbar-gutter:stable]">
+      <AnimationStyles />
+
+      {/* 1. Navbar is OUTSIDE the condition, so it stays visible everywhere */}
+      <Navbar onNavigate={setCurrentPage} />
+
+      <div key={currentPage}>
+        {/* IF page is 'home', show the home stuff */}
+        {currentPage === 'home' && (
+          <PageWrapper>
+            <Hero />
+            <Footer />
+          </PageWrapper>
+        )}
+
+        {/* IF page is 'guitar', show ONLY the guitar page */}
+        {currentPage === 'guitar' && (
+          <PageWrapper>
+            <GuitarPage goBack={() => setCurrentPage('home')} />
+          </PageWrapper>
+        )}
+
+        {currentPage === 'singing' && (
+          <PageWrapper>
+            <SingingPage goBack={() => setCurrentPage('home')} />
+          </PageWrapper>
+        )}
+      </div>
     </div>
   );
 }
