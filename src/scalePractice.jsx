@@ -7,8 +7,26 @@ const ScalePractice = ({ goBack }) => {
   // 1. Restore the State (Memory)
   const [selectedNotes, setSelectedNotes] = useState({});
 
+  // Define the Chromatic Scale (All 12 notes)
+  const chromaticScale = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+
+  // Starting notes for Standard Tuning (High e to Low E): E, B, G, D, A, E
+  // These are the indices in the chromaticScale array: E=4, B=11, G=7, D=2, A=9, E=4
+  const openStringIndices = [4, 11, 7, 2, 9, 4];
+
+  // Create a 2D Array: strings[stringIndex][fretIndex] = Note Name
+  // Example: strings[0][0] is 'E' (Open High e), strings[0][1] is 'F' (1st fret)
+  const strings = openStringIndices.map(startIndex => 
+    Array.from({ length: 16 }, (_, fret) => chromaticScale[(startIndex + fret) % 12])
+  );
+
   // 2. Restore the Logic (What happens when clicked)
   const handleFretClick = (stringIndex, fretIndex) => {
+    // ADDED: Clear the console first so you only see the latest click
+    console.clear(); 
+    // Now we access the 2D array using [stringIndex][fretIndex] to get the note name
+    console.log(`Clicked -> String: ${stringIndex}, Fret: ${fretIndex}, Note: ${strings[stringIndex][fretIndex]}`);
+
     setSelectedNotes((prev) => {
       // Check if clicking the currently selected note
       const isSameNote = prev[stringIndex] === fretIndex;
@@ -37,7 +55,10 @@ const ScalePractice = ({ goBack }) => {
           </button>
 
           <button 
-            onClick={() => setSelectedNotes({})}
+            onClick={() => {
+              setSelectedNotes({});
+              console.clear(); // Clear console when clearing board too
+            }}
             className="flex items-center px-4 py-2 bg-gray-800 hover:bg-red-900/30 text-gray-400 hover:text-red-400 rounded-lg transition-colors border border-gray-700"
           >
             <Trash2 className="w-4 h-4 mr-2" />
