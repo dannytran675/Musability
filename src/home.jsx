@@ -4,6 +4,9 @@ import { Music2 } from 'lucide-react';
 //pages
 import GuitarPage from './guitar';
 import SingingPage from './singing';
+//pages under guitar page
+import ChordIdentifier from './chordIdentifier';
+import ScalePractice from './scalePractice';
 
 const AnimationStyles = () => (
   <style>{`
@@ -175,16 +178,31 @@ export default function App() {
           </PageWrapper>
         )}
 
-        {/* IF page is 'guitar', show ONLY the guitar page */}
         {currentPage === 'guitar' && (
           <PageWrapper>
-            <GuitarPage goBack={() => setCurrentPage('home')} />
+            <GuitarPage 
+              goBack={() => setCurrentPage('home')} 
+              onNavigate={setCurrentPage}
+            />
           </PageWrapper>
         )}
 
         {currentPage === 'singing' && (
           <PageWrapper>
             <SingingPage goBack={() => setCurrentPage('home')} />
+          </PageWrapper>
+        )}
+
+        {/* pages under guitar */}
+        {currentPage === 'chord-id' && (
+          <PageWrapper>
+            <ChordIdentifier goBack={() => setCurrentPage('guitar')} />
+          </PageWrapper>
+        )}
+
+        {currentPage === 'scale-prac' && (
+          <PageWrapper>
+            <ScalePractice goBack={() => setCurrentPage('guitar')} />
           </PageWrapper>
         )}
       </div>

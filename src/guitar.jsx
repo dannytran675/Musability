@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowLeft, Music } from 'lucide-react';
 
-const GuitarPage = ({ goBack }) => {
+const GuitarPage = ({ goBack, onNavigate }) => {
   return (
     <div className="min-h-screen bg-gray-900 text-white p-8">
       {/* Header */}
@@ -19,15 +19,30 @@ const GuitarPage = ({ goBack }) => {
         </h1>
       </div>
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto grid gap-6">
-        <div className="bg-gray-800 p-6 rounded-2xl border border-gray-700">
-          <h2 className="text-2xl font-semibold mb-4">Lesson 1: The Basics</h2>
+      {/* Chord Identifier */}
+      <div className="max-w-4xl mx-auto grid gap-6 mb-4">
+        <button 
+          onClick={() => onNavigate('chord-id')}
+          className="w-full text-left bg-gray-800 p-6 rounded-2xl border border-gray-700 transition duration-300 hover:bg-gray-700 hover:border-purple-300">
+          <h2 className="text-2xl font-semibold mb-4">Chord Identifier</h2>
           <p className="text-gray-300">
-            Welcome to the guitar section! Here is where your guitar lessons will appear.
+            This will help you identify chords based on finger positions!
           </p>
-        </div>
+        </button>
       </div>
+
+      {/* Scale Practice */}
+      <div className="max-w-4xl mx-auto grid gap-6">
+        <button 
+          onClick={() => onNavigate('scale-prac')}
+          className="w-full text-left bg-gray-800 p-6 rounded-2xl border border-gray-700 transition duration-300 hover:bg-gray-700 hover:border-purple-300">
+          <h2 className="text-2xl font-semibold mb-4">Scale Practice</h2>
+          <p className="text-gray-300">
+            A useful tool to help you with all your scale practice!
+          </p>
+        </button>
+      </div>
+
     </div>
   );
 };
