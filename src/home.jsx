@@ -67,8 +67,11 @@ const Navbar = ({ onNavigate }) => { //Uses the onNavigate function created in H
               Singing
             </button>
             
-            <button className="bg-purple-400 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
-              Placeholder
+            <button
+              onClick={() => onNavigate('songs')} 
+              className="text-purple-200 hover:text-purple-400 transition-colors"
+            >
+              Songs
             </button>
           </div>
         </div>
