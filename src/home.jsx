@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; //imports useState for page switching
 import { Music2 } from 'lucide-react';
 
 //pages
@@ -21,13 +21,13 @@ const AnimationStyles = () => (
 );
 
 // This wrapper applies the animation every time the 'key' changes
-const PageWrapper = ({ children }) => (
+const PageWrapper = ({ children }) => ( //children as in everything in between <PageWrapper></PageWrapper>
   <div className="page-enter w-full">
     {children}
   </div>
 );
 
-const Navbar = ({ onNavigate }) => {
+const Navbar = ({ onNavigate }) => { //Uses the onNavigate function created in Home
   return (
     <nav className="bg-gray-900 shadow-sm sticky top-0 z-50">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
@@ -159,15 +159,15 @@ const Footer = () => {
   );
 };
 
-export default function App() {
-  const [currentPage, setCurrentPage] = useState('home');
+export default function Home() {
+  const [currentPage, setCurrentPage] = useState('home'); //function to switch pages
 
   return (
     <div className="h-screen bg-gray-900 overflow-y-auto [scrollbar-gutter:stable]">
       <AnimationStyles />
 
       {/* 1. Navbar is OUTSIDE the condition, so it stays visible everywhere */}
-      <Navbar onNavigate={setCurrentPage} />
+      <Navbar onNavigate={setCurrentPage} /> {/*creates the onNavigate function*/}
 
       <div key={currentPage}>
         {/* IF page is 'home', show the home stuff */}
@@ -181,8 +181,8 @@ export default function App() {
         {currentPage === 'guitar' && (
           <PageWrapper>
             <GuitarPage 
-              goBack={() => setCurrentPage('home')} 
-              onNavigate={setCurrentPage}
+              goBack={() => setCurrentPage('home')} //function goBack for pages (used for back arrow on website)
+              onNavigate={setCurrentPage} //function to go into subpages within GuitarPage
             />
           </PageWrapper>
         )}

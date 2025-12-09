@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowLeft, Music } from 'lucide-react';
 
-const GuitarPage = ({ goBack, onNavigate }) => {
+const GuitarPage = ({ goBack, onNavigate }) => { //receives functions goBack and onNavigate to be used
   return (
     <div className="min-h-screen bg-gray-900 text-white p-8">
       {/* Header */}
