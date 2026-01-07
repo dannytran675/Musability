@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Music, Trash2 } from 'lucide-react';
-import Fretboard from './Fretboard';
+import Fretboard from './fretboard';
 
 const ChordIdentifier = ({ goBack }) => {
   const [selectedNotes, setSelectedNotes] = useState({});

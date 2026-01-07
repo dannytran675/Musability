@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // FIXED: Added Trash2 to the import list
 import { ArrowLeft, Music, Trash2 } from 'lucide-react';
-import Fretboard from './Fretboard';
+import Fretboard from './fretboard';
 
 const ScalePractice = ({ goBack }) => {
   // 1. Restore the State (Memory)
